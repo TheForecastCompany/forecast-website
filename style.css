@@ -1,0 +1,148 @@
+/* Global styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Header */
+.site-header {
+  background-color: #1f1f1f;
+  color: white;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+  margin-right: 1rem;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  flex: 1;
+}
+
+.main-nav a {
+  color: white;
+  margin: 0 0.75rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.main-nav a:hover {
+  color: #39B370;
+}
+
+.login-container {
+  margin-left: auto;
+}
+
+.login-button {
+  background-color: #39B370;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #2e8e5b;
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: #e1f5ec;
+  text-align: center;
+  padding: 4rem 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.hero-section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Content Sections */
+.info-section {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.info-section h2 {
+  color: #1f1f1f;
+  margin-bottom: 1rem;
+}
+
+.service-placeholder,
+.team-placeholder,
+.contact-form-placeholder {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border: 2px dashed #ccc;
+  text-align: center;
+  border-radius: 6px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Footer */
+.site-footer {
+  background: #1f1f1f;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav {
+    margin-top: 1rem;
+  }
+
+  .login-container {
+    margin-top: 1rem;
+    align-self: flex-end;
+  }
+
+  .logo {
+    margin-bottom: 0.5rem;
+  }
+}
