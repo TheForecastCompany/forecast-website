@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mecha Chocolate Sales Forecast</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #fafafa; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; }
+    h1 { text-align: center; margin-bottom: 20px; }
+    .metrics { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
+    .card {
+      background: #fff; padding: 16px; border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: center;
+      flex: 1;
+    }
+    .metric-label { color: #777; font-size: 0.9em; }
+    .metric-value { font-size: 1.4em; font-weight: bold; color: #333; }
+    .controls { text-align: center; margin-bottom: 20px; }
+    #chart { width: 100%; height: 500px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mecha Chocolate Sales Forecast</h1>
+    
+    <div class="metrics">
+      <div class="card">
+        <div class="metric-label">Total Forecast (12 Weeks)</div>
+        <div id="total-forecast" class="metric-value">—</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">Total Safe Estimate (x1.1)</div>
+        <div id="total-safe" class="metric-value">—</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">R²</div>
+        <div id="r2-score" class="metric-value">—</div>
+      </div>
+    </div>
+
+    <div id="chart"></div>
+  </div>
+
+  <script>
+    window.onload = async function() {
+      try {
+        // ✅ Correct backend URL and POST method
+        const response = await fetch('http://127.0.0.1:5050/forecast', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+
+        const data = await response.json();
+        console.log('Forecast data:', data); // 🐛 For debugging
+
+        if (data.error) {
+          alert("Error: " + data.error);
+          return;
+        }
+
+        // Update metrics
+        const totalForecast = data.forecast_values.reduce((a, b) => a + b, 0);
+        const totalSafe = data.safe_estimate.reduce((a, b) => a + b, 0);
+
+        document.getElementById('total-forecast').textContent = "$" + totalForecast.toLocaleString();
+        document.getElementById('total-safe').textContent = "$" + totalSafe.toLocaleString();
+        document.getElementById('r2-score').textContent = data.metrics.r2;
+
+        // Plot chart
+        const trace1 = {
+          x: data.forecast_dates,
+          y: data.forecast_values,
+          mode: 'lines+markers',
+          name: 'Forecast'
+        };
+
+        const trace2 = {
+          x: data.forecast_dates,
+          y: data.safe_estimate,
+          mode: 'lines+markers',
+          name: 'Safe Estimate'
+        };
+
+        Plotly.newPlot('chart', [trace1, trace2], {
+          title: '12-Week Sales Forecast',
+          xaxis: { title: 'Date' },
+          yaxis: { title: 'Sales ($)' }
+        });
+
+      } catch (error) {
+        console.error("Error fetching forecast:", error);
+        alert("Failed to load forecast data.");
+      }
+    };
+  </script>
+</body>
+</html>

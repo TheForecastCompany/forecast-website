@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
+  url      = "postgresql://iphonecool:mypassword@localhost:5432/mydb?schema=public"
 }
 
 model User {
@@ -12,3 +12,4 @@ model User {
   username String  @unique
   password String
 }
+
