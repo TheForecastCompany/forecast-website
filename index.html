@@ -21,13 +21,50 @@
 
     /* Header */
     header { position: fixed; top: 0; width: 100%; background: #000; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-    .header-content { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
-    .logo { height: 50px; }
-    .site-title { color: #fff; font-weight: 700; margin-left: 1rem; }
-    .main-nav a { margin-left: 2rem; font-weight: 600; transition: color 0.3s; color: #fff; }
+    .header-content { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 1rem 0; 
+      flex-wrap: nowrap;
+      min-height: 70px;
+    }
+    .logo { height: 50px; flex-shrink: 0; }
+    .site-title { 
+      color: #fff; 
+      font-weight: 700; 
+      margin-left: 1rem; 
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .main-nav { 
+      display: flex; 
+      align-items: center; 
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+    }
+    .main-nav a { 
+      margin-left: 1.5rem; 
+      font-weight: 600; 
+      transition: color 0.3s; 
+      color: #fff; 
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
     .main-nav a:hover { color: #28a745; }
-    .login-button { padding: 0.5rem 1rem; background: #3bb371; color: #fff; border-radius: 5px; font-weight: 600; transition: background 0.3s; }
-    .login-button:hover { background: #3bb371; }
+    .login-container { 
+      flex-shrink: 0;
+    }
+    .login-button { 
+      padding: 0.5rem 1rem; 
+      background: #3bb371; 
+      color: #fff; 
+      border-radius: 5px; 
+      font-weight: 600; 
+      transition: background 0.3s; 
+      white-space: nowrap;
+    }
+    .login-button:hover { background: #28a745; }
 
     /* Hero Section */
     .hero-section {
@@ -85,12 +122,314 @@
 
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Responsive */
+    /* Mobile-First Responsive Design */
+    
+    /* Desktop Window Minimization */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .header-content { 
+        padding: 0.8rem 0; 
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .main-nav { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 1rem;
+      }
+      .main-nav a { 
+        margin-left: 1rem; 
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+      .site-title { 
+        font-size: 1.1rem; 
+        margin-left: 0.5rem;
+      }
+      .logo { 
+        height: 45px;
+      }
+      .login-button { 
+        padding: 0.4rem 0.8rem; 
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Small Desktop/Large Tablet */
+    @media (max-width: 900px) and (min-width: 769px) {
+      .header-content { 
+        padding: 0.7rem 0; 
+        gap: 0.3rem;
+      }
+      .main-nav a { 
+        margin-left: 0.8rem; 
+        font-size: 0.85rem;
+      }
+      .site-title { 
+        font-size: 1rem; 
+        margin-left: 0.3rem;
+      }
+      .logo { 
+        height: 40px;
+      }
+      .login-button { 
+        padding: 0.3rem 0.6rem; 
+        font-size: 0.85rem;
+      }
+    }
+    
+    /* Tablet and Mobile Landscape */
     @media (max-width: 768px) {
-      .main-nav { display: none; }
-      .hero-section h2 { font-size: 2rem; }
-      .hero-section p { font-size: 1.1rem; }
-      .about-images { flex-direction: column; gap: 20px; }
+      .container { 
+        width: 95%; 
+        padding: 0 10px;
+      }
+      
+      /* Header Mobile */
+      header { 
+        position: fixed; 
+        top: 0; 
+        width: 100%; 
+        background: #000; 
+        z-index: 1000; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      }
+      .header-content { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        padding: 0.8rem 1rem;
+        gap: 0.5rem;
+      }
+      .logo { 
+        height: 40px; 
+        margin: 0;
+      }
+      .site-title { 
+        color: #fff; 
+        font-weight: 700; 
+        margin: 0; 
+        font-size: 1.1rem;
+      }
+      .main-nav { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 0.8rem; 
+        margin: 0.3rem 0;
+      }
+      .main-nav a { 
+        margin: 0; 
+        font-weight: 600; 
+        color: #fff; 
+        font-size: 0.85rem;
+        padding: 0.3rem 0.5rem;
+      }
+      .login-container { 
+        margin: 0.3rem 0 0 0; 
+      }
+      .login-button { 
+        padding: 0.4rem 0.8rem; 
+        font-size: 0.85rem;
+      }
+      
+      /* Hero Mobile */
+      .hero-section { 
+        min-height: 60vh; 
+        padding: 2rem 1rem 1rem 1rem;
+        margin-top: 80px;
+      }
+      .hero-section h2 { 
+        font-size: 1.8rem; 
+        margin-bottom: 1rem; 
+        line-height: 1.3;
+      }
+      .hero-section p { 
+        font-size: 1rem; 
+        padding: 0; 
+        line-height: 1.5;
+        max-width: 100%;
+      }
+      
+      /* Content Mobile */
+      .info-section { 
+        padding: 2rem 1rem; 
+        margin: 1rem 0.5rem; 
+        border-radius: 8px;
+      }
+      .info-section h2 { 
+        font-size: 1.8rem; 
+        margin-bottom: 1rem;
+      }
+      .info-section p { 
+        font-size: 0.95rem; 
+        padding: 0; 
+        line-height: 1.6;
+      }
+      
+      /* About Images Mobile */
+      .about-images { 
+        flex-direction: column; 
+        gap: 1.5rem; 
+        margin-top: 1.5rem;
+      }
+      .about-images img { 
+        max-width: 180px; 
+        margin: 0 auto;
+        border-radius: 8px;
+      }
+      .about-images div div { 
+        margin-top: 0.5rem; 
+        font-weight: 600; 
+        font-size: 0.9rem;
+      }
+      
+      /* Services Image Mobile */
+      .info-section img { 
+        max-width: 100%; 
+        height: auto; 
+        margin: 1.5rem auto; 
+        border-radius: 8px;
+      }
+      
+      /* Contact Mobile */
+      .contact-form-placeholder { 
+        margin: 1.5rem 0 0 0;
+        padding: 0;
+      }
+      .contact-form-placeholder h3 { 
+        font-size: 1.3rem; 
+        margin-bottom: 1rem;
+      }
+      .contact-form-placeholder .calendly-inline-widget { 
+        min-width: 100% !important; 
+        width: 100% !important;
+        height: 500px !important;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      
+      /* Footer Mobile */
+      footer { 
+        padding: 1rem 0; 
+        font-size: 0.85rem;
+      }
+    }
+    
+    /* Mobile Portrait (iPhone) */
+    @media (max-width: 480px) {
+      .container { 
+        width: 98%; 
+        padding: 0 5px;
+      }
+      
+      /* Header iPhone */
+      .header-content { 
+        padding: 0.6rem 0.5rem;
+        gap: 0.4rem;
+      }
+      .logo { 
+        height: 35px;
+      }
+      .site-title { 
+        font-size: 1rem;
+      }
+      .main-nav { 
+        gap: 0.6rem; 
+        margin: 0.2rem 0;
+      }
+      .main-nav a { 
+        font-size: 0.8rem;
+        padding: 0.2rem 0.4rem;
+      }
+      .login-button { 
+        padding: 0.3rem 0.6rem; 
+        font-size: 0.8rem;
+      }
+      
+      /* Hero iPhone */
+      .hero-section { 
+        min-height: 50vh; 
+        padding: 1.5rem 0.8rem 1rem 0.8rem;
+        margin-top: 70px;
+      }
+      .hero-section h2 { 
+        font-size: 1.5rem; 
+        margin-bottom: 0.8rem;
+        line-height: 1.2;
+      }
+      .hero-section p { 
+        font-size: 0.9rem; 
+        line-height: 1.4;
+      }
+      
+      /* Content iPhone */
+      .info-section { 
+        padding: 1.5rem 0.8rem; 
+        margin: 0.8rem 0.3rem;
+      }
+      .info-section h2 { 
+        font-size: 1.5rem; 
+        margin-bottom: 0.8rem;
+      }
+      .info-section p { 
+        font-size: 0.9rem; 
+        line-height: 1.5;
+      }
+      
+      /* About Images iPhone */
+      .about-images { 
+        gap: 1.2rem; 
+        margin-top: 1.2rem;
+      }
+      .about-images img { 
+        max-width: 150px;
+      }
+      .about-images div div { 
+        font-size: 0.85rem;
+      }
+      
+      /* Services Image iPhone */
+      .info-section img { 
+        margin: 1.2rem auto;
+      }
+      
+      /* Contact iPhone */
+      .contact-form-placeholder h3 { 
+        font-size: 1.2rem; 
+        margin-bottom: 0.8rem;
+      }
+      .contact-form-placeholder .calendly-inline-widget { 
+        height: 450px !important;
+      }
+      
+      /* Footer iPhone */
+      footer { 
+        padding: 0.8rem 0; 
+        font-size: 0.8rem;
+      }
+    }
+    
+    /* Very Small Screens */
+    @media (max-width: 360px) {
+      .hero-section h2 { 
+        font-size: 1.3rem;
+      }
+      .hero-section p { 
+        font-size: 0.85rem;
+      }
+      .info-section h2 { 
+        font-size: 1.3rem;
+      }
+      .info-section p { 
+        font-size: 0.85rem;
+      }
+      .about-images img { 
+        max-width: 130px;
+      }
+      .contact-form-placeholder .calendly-inline-widget { 
+        height: 400px !important;
+      }
     }
   </style>
 
