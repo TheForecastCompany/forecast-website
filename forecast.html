@@ -15,10 +15,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: #000;
             min-height: 100vh;
-            color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
@@ -28,13 +30,14 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             color: white;
             padding: 2rem;
             border-radius: 15px;
             text-align: center;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
         }
 
         .header h1 {
@@ -50,40 +53,44 @@
 
         .tabs {
             display: flex;
-            background: white;
+            background: #1a1a1a;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
+            border: 1px solid #333;
         }
 
         .tab-button {
             flex: 1;
             padding: 1rem 2rem;
-            background: #f8f9fa;
+            background: #2d2d2d;
             border: none;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
-            color: #666;
+            color: #ccc;
             transition: all 0.3s ease;
         }
 
         .tab-button:hover {
-            background: #e9ecef;
+            background: #3d3d3d;
+            color: #fff;
         }
 
         .tab-button.active {
-            background: #007bff;
+            background: #3bb371;
             color: white;
         }
 
         .tab-content {
             display: none;
-            background: white;
+            background: #1a1a1a;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            color: #fff;
         }
 
         .tab-content.active {
@@ -98,15 +105,15 @@
         }
 
         .metric-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
             padding: 1.5rem;
             border-radius: 10px;
             text-align: center;
-            border: 1px solid #dee2e6;
+            border: 1px solid #444;
         }
 
         .metric-card h3 {
-            color: #495057;
+            color: #ccc;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             text-transform: uppercase;
@@ -116,20 +123,21 @@
         .metric-value {
             font-size: 2rem;
             font-weight: 700;
-            color: #000;
+            color: #fff;
             margin-bottom: 0.25rem;
         }
 
         .metric-change {
             font-size: 0.8rem;
-            color: #6c757d;
+            color: #888;
         }
 
         .chart-container {
             margin: 2rem 0;
             padding: 1.5rem;
-            background: #f8f9fa;
+            background: #2d2d2d;
             border-radius: 10px;
+            border: 1px solid #444;
         }
 
         .chart {
@@ -145,11 +153,12 @@
         }
 
         .recommendation-card {
-            background: white;
+            background: #2d2d2d;
             padding: 1.5rem;
             border-radius: 8px;
-            border-left: 4px solid #007bff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3bb371;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
         }
 
         .recommendation-card.high-priority {
@@ -166,19 +175,19 @@
 
         .recommendation-title {
             font-weight: 600;
-            color: #000;
+            color: #fff;
             margin-bottom: 0.5rem;
         }
 
         .recommendation-description {
-            color: #495057;
+            color: #ccc;
             margin-bottom: 0.5rem;
             line-height: 1.4;
         }
 
         .recommendation-impact {
             font-size: 0.9rem;
-            color: #6c757d;
+            color: #888;
             font-style: italic;
         }
 
@@ -189,27 +198,29 @@
         .data-table table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            background: #2d2d2d;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
         }
 
         .data-table th,
         .data-table td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid #444;
+            color: #fff;
         }
 
         .data-table th {
-            background: #f8f9fa;
+            background: #1a1a1a;
             font-weight: 600;
-            color: #495057;
+            color: #fff;
         }
 
         .data-table tr:hover {
-            background: #f8f9fa;
+            background: #3d3d3d;
         }
 
         .loading {
@@ -257,7 +268,7 @@
         }
 
         .btn {
-            background: #007bff;
+            background: linear-gradient(135deg, #3bb371 0%, #28a745 100%);
             color: white;
             border: none;
             padding: 0.75rem 1.5rem;
@@ -265,18 +276,20 @@
             cursor: pointer;
             font-size: 1rem;
             margin: 0.25rem;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
-            background: #0056b3;
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            transform: translateY(-1px);
         }
 
         .btn-success {
-            background: #28a745;
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
         }
 
         .btn-danger {
-            background: #dc3545;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
         }
 
         .form-group {
@@ -287,7 +300,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #495057;
+            color: #fff;
         }
 
         .form-group input,
@@ -295,18 +308,34 @@
         .form-group textarea {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ced4da;
+            border: 1px solid #444;
             border-radius: 5px;
             font-size: 1rem;
+            background: #2d2d2d;
+            color: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3bb371;
+            box-shadow: 0 0 0 2px rgba(59, 179, 113, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #888;
         }
 
         .action-item {
-            background: white;
+            background: #2d2d2d;
             padding: 1rem;
             margin-bottom: 1rem;
             border-radius: 8px;
-            border: 1px solid #dee2e6;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #444;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #fff;
         }
 
         .action-taken {

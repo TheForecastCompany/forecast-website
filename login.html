@@ -6,49 +6,127 @@
   <title>Login - The Forecast Company</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
     .login-form-container {
       max-width: 400px;
-      margin: 5rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 1px solid #333;
+      margin: 0 auto;
     }
+    
     .login-form-container h2 {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
     }
+    
+    .login-form-container form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    
     .login-form-container input {
       width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      max-width: 300px;
+      padding: 1rem;
+      margin: 0.75rem 0;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
     }
+    
+    .login-form-container input:focus {
+      outline: none;
+      border-color: #3bb371;
+      box-shadow: 0 0 0 3px rgba(59, 179, 113, 0.2);
+    }
+    
+    .login-form-container input::placeholder {
+      color: #888;
+    }
+    
     .login-form-container button {
       width: 100%;
-      padding: 0.75rem;
-      background-color: #39B370;
+      max-width: 300px;
+      padding: 1rem;
+      background: linear-gradient(135deg, #3bb371 0%, #28a745 100%);
       border: none;
       color: white;
-      font-size: 1rem;
-      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
+    
     .login-form-container button:hover {
-      background-color: #2e8e5b;
+      background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59, 179, 113, 0.3);
     }
+    
+    .login-form-container button:active {
+      transform: translateY(0);
+    }
+    
     .forgot-password {
       display: block;
       text-align: center;
-      margin-top: 1rem;
-      color: #555;
+      margin-top: 1.5rem;
+      color: #888;
       text-decoration: none;
       font-size: 0.9rem;
+      transition: color 0.3s ease;
     }
+    
     .forgot-password:hover {
+      color: #3bb371;
       text-decoration: underline;
+    }
+    
+    .error-message {
+      background: #dc3545;
+      color: #fff;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .success-message {
+      background: #28a745;
+      color: #fff;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
     }
   </style>
 </head>
