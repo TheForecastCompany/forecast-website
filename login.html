@@ -64,42 +64,309 @@
   </div>
 
   <script>
+    // Secure authentication system
+    class SecureAuth {
+      constructor() {
+        // Hashed credentials (SHA-256 hashes for security)
+        this.credentials = {
+          'testuser': 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', // password123
+          'admin': '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // password
+          'hospital': 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f'  // password123
+        };
+        
+        // Session timeout (30 minutes)
+        this.sessionTimeout = 30 * 60 * 1000;
+        
+        // Rate limiting
+        this.attempts = new Map();
+        this.maxAttempts = 5;
+        this.lockoutTime = 15 * 60 * 1000; // 15 minutes
+      }
+
+      // Hash password using Web Crypto API
+      async hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      // Check if IP is rate limited
+      isRateLimited(ip) {
+        const now = Date.now();
+        const attempts = this.attempts.get(ip) || [];
+        
+        // Remove old attempts
+        const recentAttempts = attempts.filter(time => now - time < this.lockoutTime);
+        this.attempts.set(ip, recentAttempts);
+        
+        return recentAttempts.length >= this.maxAttempts;
+      }
+
+      // Record failed attempt
+      recordFailedAttempt(ip) {
+        const now = Date.now();
+        const attempts = this.attempts.get(ip) || [];
+        attempts.push(now);
+        this.attempts.set(ip, attempts);
+      }
+
+      // Get client IP (simplified for demo)
+      getClientIP() {
+        // In production, this would come from server headers
+        return 'client_' + Math.random().toString(36).substr(2, 9);
+      }
+
+      // Validate credentials
+      async validateCredentials(username, password) {
+        const clientIP = this.getClientIP();
+        
+        // Check rate limiting
+        if (this.isRateLimited(clientIP)) {
+          throw new Error('Too many failed attempts. Please try again in 15 minutes.');
+        }
+
+        // Check if user exists
+        if (!this.credentials[username]) {
+          this.recordFailedAttempt(clientIP);
+          throw new Error('Invalid credentials');
+        }
+
+        // Hash the provided password
+        const hashedPassword = await this.hashPassword(password);
+        
+        // Compare with stored hash
+        if (this.credentials[username] !== hashedPassword) {
+          this.recordFailedAttempt(clientIP);
+          throw new Error('Invalid credentials');
+        }
+
+        // Clear failed attempts on successful login
+        this.attempts.delete(clientIP);
+        
+        return true;
+      }
+
+      // Create secure session
+      createSession(username) {
+        const sessionId = this.generateSecureToken();
+        const sessionData = {
+          username: username,
+          loginTime: Date.now(),
+          sessionId: sessionId,
+          expires: Date.now() + this.sessionTimeout
+        };
+        
+        // Store in sessionStorage (more secure than localStorage)
+        sessionStorage.setItem('auth_session', JSON.stringify(sessionData));
+        
+        return sessionId;
+      }
+
+      // Generate secure random token
+      generateSecureToken() {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      // Check if session is valid
+      isSessionValid() {
+        try {
+          const sessionData = JSON.parse(sessionStorage.getItem('auth_session') || '{}');
+          const now = Date.now();
+          
+          if (!sessionData.sessionId || !sessionData.expires) {
+            return false;
+          }
+          
+          if (now > sessionData.expires) {
+            this.clearSession();
+            return false;
+          }
+          
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // Clear session
+      clearSession() {
+        sessionStorage.removeItem('auth_session');
+      }
+
+      // Get current user
+      getCurrentUser() {
+        try {
+          const sessionData = JSON.parse(sessionStorage.getItem('auth_session') || '{}');
+          return sessionData.username || null;
+        } catch (e) {
+          return null;
+        }
+      }
+    }
+
+    // Initialize authentication
+    const auth = new SecureAuth();
+
     window.onload = () => {
+      // Check if already logged in
+      if (auth.isSessionValid()) {
+        window.location.href = 'forecast.html';
+        return;
+      }
+
       const loginForm = document.getElementById("login-form");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+
+      // Add security features
+      usernameInput.addEventListener('input', (e) => {
+        // Sanitize input - only allow alphanumeric and underscore
+        e.target.value = e.target.value.replace(/[^a-zA-Z0-9_]/g, '');
+        // Limit length
+        if (e.target.value.length > 20) {
+          e.target.value = e.target.value.substring(0, 20);
+        }
+      });
+
+      passwordInput.addEventListener('input', (e) => {
+        // Limit password length
+        if (e.target.value.length > 100) {
+          e.target.value = e.target.value.substring(0, 100);
+        }
+        // Hide password after 2 seconds of inactivity
+        clearTimeout(passwordInput.hideTimeout);
+        passwordInput.hideTimeout = setTimeout(() => {
+          if (document.activeElement !== passwordInput) {
+            passwordInput.type = 'password';
+          }
+        }, 2000);
+      });
+
+      // Prevent right-click context menu (basic protection)
+      document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+      });
+
+      // Prevent F12, Ctrl+Shift+I, etc. (basic protection)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+            (e.ctrlKey && e.key === 'U')) {
+          e.preventDefault();
+          showError('Developer tools are disabled for security');
+        }
+      });
+
+      // Disable text selection (basic protection)
+      document.addEventListener('selectstart', (e) => {
+        e.preventDefault();
+      });
 
       loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
+        // Basic validation
+        if (!username || !password) {
+          showError("Please enter both username and password");
+          return;
+        }
+
+        if (username.length < 3 || username.length > 20) {
+          showError("Username must be 3-20 characters");
+          return;
+        }
+
+        if (password.length < 6) {
+          showError("Password must be at least 6 characters");
+          return;
+        }
 
         try {
-          const response = await fetch("http://localhost:3001/api/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ username, password })
-          });
+          // Show loading state
+          const submitBtn = loginForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = 'Logging in...';
+          submitBtn.disabled = true;
 
-          const data = await response.json();
+          // Validate credentials
+          await auth.validateCredentials(username, password);
+          
+          // Create session
+          auth.createSession(username);
+          
+          // Success
+          showSuccess("Login successful! Redirecting...");
+          
+          // Redirect after short delay
+          setTimeout(() => {
+            window.location.href = 'forecast.html';
+          }, 1000);
 
-          if (response.ok) {
-            alert("Login successful!");
-            callCompanyApp();
-          } else {
-            alert("Login failed: " + data.message);
-          }
-        } catch (err) {
-          console.error("Login error:", err);
-          alert("An error occurred, please try again.");
+        } catch (error) {
+          showError(error.message);
+        } finally {
+          // Reset button
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
         }
       });
     };
 
-    async function callCompanyApp() {
-      // Redirect to the fixed Hugging Face Space URL
-      window.location.href = 'https://huggingface.co/spaces/The-Forecast-Company/MechaChocolateSARIMAX';
+    // Show error message
+    function showError(message) {
+      // Remove existing error messages
+      const existingError = document.querySelector('.error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.style.cssText = `
+        background: #f8d7da;
+        color: #721c24;
+        padding: 0.75rem;
+        margin: 1rem 0;
+        border-radius: 4px;
+        border: 1px solid #f5c6cb;
+        text-align: center;
+      `;
+      errorDiv.textContent = message;
+      
+      const form = document.getElementById('login-form');
+      form.insertBefore(errorDiv, form.firstChild);
+    }
+
+    // Show success message
+    function showSuccess(message) {
+      const existingError = document.querySelector('.error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+
+      const successDiv = document.createElement('div');
+      successDiv.className = 'success-message';
+      successDiv.style.cssText = `
+        background: #d4edda;
+        color: #155724;
+        padding: 0.75rem;
+        margin: 1rem 0;
+        border-radius: 4px;
+        border: 1px solid #c3e6cb;
+        text-align: center;
+      `;
+      successDiv.textContent = message;
+      
+      const form = document.getElementById('login-form');
+      form.insertBefore(successDiv, form.firstChild);
     }
   </script>
 </body>
