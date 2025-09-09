@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Company Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .header h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .admin-section {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid #333;
+        }
+
+        .admin-section h2 {
+            color: #3bb371;
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .company-card {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+
+        .company-card h3 {
+            color: #3bb371;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .company-info {
+            margin-bottom: 1rem;
+        }
+
+        .company-info p {
+            margin: 0.5rem 0;
+            color: #ccc;
+        }
+
+        .company-info strong {
+            color: #fff;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3bb371 0%, #28a745 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.25rem;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: #2d2d2d;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3bb371;
+            box-shadow: 0 0 0 3px rgba(59, 179, 113, 0.2);
+        }
+
+        .back-link {
+            color: #3bb371;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: #28a745;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #3bb371;
+            overflow-x: auto;
+        }
+
+        .instructions {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #3bb371;
+            margin-bottom: 2rem;
+        }
+
+        .instructions h3 {
+            color: #3bb371;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin: 0.5rem 0;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="login.html" class="back-link">← Back to Login</a>
+        
+        <div class="header">
+            <h1>Admin Panel</h1>
+            <p>Company Management System</p>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 How to Add New Companies</h3>
+            <ol>
+                <li>Add the new company credentials to the <code>credentials</code> object in <code>login.html</code></li>
+                <li>Create a new forecast page (e.g., <code>forecast-companyname.html</code>)</li>
+                <li>Add the company email to the <code>emailDatabase</code> in <code>forgot-password.html</code></li>
+                <li>Update this admin panel to include the new company</li>
+            </ol>
+        </div>
+
+        <div class="admin-section">
+            <h2>🏢 Current Companies</h2>
+            <div class="company-grid" id="companies-grid">
+                <!-- Companies will be populated here -->
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>➕ Add New Company</h2>
+            <form id="add-company-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company Code:</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" id="companyName" name="companyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="forecastPage">Forecast Page:</label>
+                    <input type="text" id="forecastPage" name="forecastPage" placeholder="forecast-company.html" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit" class="btn">Add Company</button>
+            </form>
+        </div>
+
+        <div class="admin-section">
+            <h2>📝 Code Generation</h2>
+            <p>Copy this code to add to your files:</p>
+            <div class="code-block" id="generated-code">
+                <!-- Generated code will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Current companies data
+        const companies = [
+            {
+                username: 'testuser',
+                company: 'demo',
+                companyName: 'Thomas Jefferson University Hospital',
+                forecastPage: 'forecast.html',
+                email: 'michaelonascooter@gmail.com'
+            },
+            {
+                username: 'admin',
+                company: 'admin',
+                companyName: 'Admin Panel',
+                forecastPage: 'forecast.html',
+                email: 'admin@forecasting.com'
+            },
+            {
+                username: 'Wanda',
+                company: 'wanda',
+                companyName: 'Wanda BYOB Restaurant',
+                forecastPage: 'wanda_forecast.html',
+                email: 'wanda@forecasting.com'
+            },
+            {
+                username: 'hospital',
+                company: 'tjuh',
+                companyName: 'Thomas Jefferson University Hospital',
+                forecastPage: 'forecast.html',
+                email: 'hospital@forecasting.com'
+            },
+            {
+                username: 'restaurant1',
+                company: 'restaurant1',
+                companyName: 'Wanda BYOB Restaurant',
+                forecastPage: 'forecast-restaurant1.html',
+                email: 'restaurant1@forecasting.com'
+            },
+            {
+                username: 'retail1',
+                company: 'retail1',
+                companyName: 'Mecha Chocolate',
+                forecastPage: 'forecast-retail1.html',
+                email: 'retail1@forecasting.com'
+            }
+        ];
+
+        // Display companies
+        function displayCompanies() {
+            const grid = document.getElementById('companies-grid');
+            grid.innerHTML = '';
+
+            companies.forEach(company => {
+                const card = document.createElement('div');
+                card.className = 'company-card';
+                card.innerHTML = `
+                    <h3>${company.companyName}</h3>
+                    <div class="company-info">
+                        <p><strong>Username:</strong> ${company.username}</p>
+                        <p><strong>Company Code:</strong> ${company.company}</p>
+                        <p><strong>Forecast Page:</strong> ${company.forecastPage}</p>
+                        <p><strong>Email:</strong> ${company.email}</p>
+                    </div>
+                    <button class="btn btn-danger" onclick="removeCompany('${company.username}')">Remove</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Add new company
+        document.getElementById('add-company-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const newCompany = {
+                username: formData.get('username'),
+                password: formData.get('password'),
+                company: formData.get('company'),
+                companyName: formData.get('companyName'),
+                forecastPage: formData.get('forecastPage'),
+                email: formData.get('email')
+            };
+
+            // Add to companies array
+            companies.push(newCompany);
+            
+            // Update display
+            displayCompanies();
+            generateCode();
+            
+            // Clear form
+            e.target.reset();
+            
+            alert('Company added! Remember to update the actual files with the generated code.');
+        });
+
+        // Remove company
+        function removeCompany(username) {
+            if (confirm('Are you sure you want to remove this company?')) {
+                const index = companies.findIndex(c => c.username === username);
+                if (index > -1) {
+                    companies.splice(index, 1);
+                    displayCompanies();
+                    generateCode();
+                }
+            }
+        }
+
+        // Generate code for copying
+        function generateCode() {
+            const codeBlock = document.getElementById('generated-code');
+            
+            // Generate login.html credentials
+            let loginCredentials = 'this.credentials = {\n';
+            companies.forEach(company => {
+                loginCredentials += `          '${company.username}': {\n`;
+                loginCredentials += `            password: 'HASHED_PASSWORD_HERE', // ${company.password}\n`;
+                loginCredentials += `            company: '${company.company}',\n`;
+                loginCredentials += `            companyName: '${company.companyName}',\n`;
+                loginCredentials += `            forecastPage: '${company.forecastPage}'\n`;
+                loginCredentials += `          },\n`;
+            });
+            loginCredentials += '        };';
+            
+            // Generate forgot-password.html email database
+            let emailDatabase = 'const emailDatabase = {\n';
+            companies.forEach(company => {
+                emailDatabase += `            '${company.email}': { username: '${company.username}', password: '${company.password}', company: '${company.companyName}' },\n`;
+            });
+            emailDatabase += '        };';
+            
+            codeBlock.innerHTML = `
+<strong>For login.html - Replace credentials object:</strong>
+${loginCredentials}
+
+<strong>For forgot-password.html - Replace emailDatabase:</strong>
+${emailDatabase}
+
+<strong>Don't forget to:</strong>
+1. Hash the passwords using SHA-256
+2. Create the forecast pages (${companies.filter(c => c.forecastPage !== 'forecast.html').map(c => c.forecastPage).join(', ')})
+3. Test the login flow
+            `;
+        }
+
+        // Initialize
+        displayCompanies();
+        generateCode();
+    </script>
+</body>
+</html>

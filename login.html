@@ -145,11 +145,44 @@
     // Secure authentication system
     class SecureAuth {
       constructor() {
-        // Hashed credentials (SHA-256 hashes for security)
+        // Multi-company credentials system
         this.credentials = {
-          'testuser': 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', // password123
-          'admin': '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // password
-          'hospital': 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f'  // password123
+          'testuser': {
+            password: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', // password123
+            company: 'demo',
+            companyName: 'Demo Company',
+            forecastPage: 'forecast.html'
+          },
+          'admin': {
+            password: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', // password
+            company: 'admin',
+            companyName: 'Admin Panel',
+            forecastPage: 'forecast.html'
+          },
+          'Wanda': {
+            password: '3928fbbb0c42cddd3672418ac4c2fbe0910cd87320bd67f5bcf4a97af30cf1b0', // buyyourownbeverage2019
+            company: 'wanda',
+            companyName: 'Wanda BYOB Restaurant',
+            forecastPage: 'wanda_forecast.html'
+          },
+          'hospital': {
+            password: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', // password123
+            company: 'testuser',
+            companyName: 'Thomas Jefferson University Hospital',
+            forecastPage: 'forecast.html'
+          },
+          'restaurant1': {
+            password: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', // password123
+            company: 'restaurant1',
+            companyName: 'Wanda BYOB Restaurant',
+            forecastPage: 'forecast-restaurant1.html'
+          },
+          'retail1': {
+            password: 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', // password123
+            company: 'retail1',
+            companyName: 'Mecha Chocolate',
+            forecastPage: 'forecast-retail1.html'
+          }
         };
         
         // Session timeout (30 minutes)
@@ -215,7 +248,7 @@
         const hashedPassword = await this.hashPassword(password);
         
         // Compare with stored hash
-        if (this.credentials[username] !== hashedPassword) {
+        if (this.credentials[username].password !== hashedPassword) {
           this.recordFailedAttempt(clientIP);
           throw new Error('Invalid credentials');
         }
@@ -229,8 +262,12 @@
       // Create secure session
       createSession(username) {
         const sessionId = this.generateSecureToken();
+        const userData = this.credentials[username];
         const sessionData = {
           username: username,
+          company: userData.company,
+          companyName: userData.companyName,
+          forecastPage: userData.forecastPage,
           loginTime: Date.now(),
           sessionId: sessionId,
           expires: Date.now() + this.sessionTimeout
@@ -239,7 +276,7 @@
         // Store in sessionStorage (more secure than localStorage)
         sessionStorage.setItem('auth_session', JSON.stringify(sessionData));
         
-        return sessionId;
+        return sessionData;
       }
 
       // Generate secure random token
@@ -378,14 +415,14 @@
           await auth.validateCredentials(username, password);
           
           // Create session
-          auth.createSession(username);
+          const sessionData = auth.createSession(username);
           
           // Success
-          showSuccess("Login successful! Redirecting...");
+          showSuccess(`Login successful! Welcome to ${sessionData.companyName}. Redirecting...`);
           
           // Redirect after short delay
           setTimeout(() => {
-            window.location.href = 'forecast.html';
+            window.location.href = sessionData.forecastPage;
           }, 1000);
 
         } catch (error) {
