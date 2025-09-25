@@ -1,34 +1,18 @@
 {
-  "name": "theforecastingcompany---website",
+  "name": "forecasting-company-email-server",
   "version": "1.0.0",
-  "type": "module",
-  "main": "script.js",
+  "description": "Email server for password reset functionality",
+  "main": "server.js",
   "scripts": {
-    "start": "node server/script.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TheForecastCompany/forecast-website.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TheForecastCompany/forecast-website/issues"
-  },
-  "homepage": "https://github.com/TheForecastCompany/forecast-website#readme",
-  "description": "",
   "dependencies": {
-    "@prisma/client": "^6.13.0",
-    "axios": "^1.11.0",
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.1",
-    "express": "^5.1.0",
-    "node-fetch": "^3.3.2"
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
-    "prisma": "^6.13.0"
+    "nodemon": "^3.0.2"
   }
 }
