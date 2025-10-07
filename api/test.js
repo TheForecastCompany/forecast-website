@@ -1,3 +1,4 @@
+// Test API endpoint to verify Vercel deployment is working
 export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -10,8 +11,8 @@ export default async function handler(req, res) {
         return;
     }
 
-    res.json({ 
-        message: 'API is working!', 
+    res.json({
+        message: 'Vercel deployment is working!',
         timestamp: new Date().toISOString(),
         method: req.method,
         url: req.url

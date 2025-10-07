@@ -11,7 +11,8 @@ node_modules/
 
 # Legacy server files (not needed for Vercel)
 server.js
-Server/script.js
+Server/
+app.py
 
 # Python cache
 __pycache__/
@@ -38,3 +39,15 @@ Thumbs.db
 README.md
 VERCEL_DEPLOYMENT.md
 EMAIL_SETUP*.md
+
+# Database files (not needed for static deployment)
+prisma/dev.db
+prisma/migrations/
+generated/
+
+# Data files
+*.csv
+*.pkl
+
+# Requirements (Python - not needed for Vercel)
+requirements.txt
