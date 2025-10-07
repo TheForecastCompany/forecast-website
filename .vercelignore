@@ -14,7 +14,9 @@ server.js
 Server/
 app.py
 
-# Python cache
+# Python files (not needed for static HTML deployment)
+*.py
+requirements.txt
 __pycache__/
 *.pyc
 *.pyo
