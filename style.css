@@ -1,148 +1,402 @@
-/* Global styles */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
-
-/* Header */
-.site-header {
-  background-color: #1f1f1f;
-  color: white;
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  flex-wrap: wrap;
-}
-
-.logo {
-  width: 60px;
-  height: auto;
-  margin-right: 1rem;
-}
-
-.site-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
-  flex: 1;
-}
-
-.main-nav a {
-  color: white;
-  margin: 0 0.75rem;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.main-nav a:hover {
-  color: #39B370;
-}
-
-.login-container {
-  margin-left: auto;
-}
-
-.login-button {
-  background-color: #39B370;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.login-button:hover {
-  background-color: #2e8e5b;
-}
-
-/* Hero Section */
-.hero-section {
-  background-color: #e1f5ec;
-  text-align: center;
-  padding: 4rem 2rem;
-  border-bottom: 1px solid #ddd;
-}
-
-.hero-section h2 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.hero-section p {
-  font-size: 1.2rem;
-  color: #555;
-}
-
-/* Content Sections */
-.info-section {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.info-section h2 {
-  color: #1f1f1f;
-  margin-bottom: 1rem;
-}
-
-.service-placeholder,
-.team-placeholder,
-.contact-form-placeholder {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #f0f0f0;
-  border: 2px dashed #ccc;
-  text-align: center;
-  border-radius: 6px;
-  color: #666;
-  font-style: italic;
-}
-
-/* Footer */
-.site-footer {
-  background: #1f1f1f;
-  color: #fff;
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 0.9rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+/* ==============================
+   Global Styles
+   ============================== */
+   body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d0d0d;
+    color: #e6e6e6;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  
+  /* ==============================
+     Header
+     ============================== */
+  .site-header {
+    background-color: #111;
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+  
   .header-content {
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    flex-wrap: wrap;
   }
-
-  .main-nav {
-    margin-top: 1rem;
-  }
-
-  .login-container {
-    margin-top: 1rem;
-    align-self: flex-end;
-  }
-
+  
   .logo {
+    width: 60px;
+    height: auto;
+    margin-right: 1rem;
+  }
+  
+  .site-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0;
+    flex: 1;
+    color: #39b370;
+  }
+  
+  .main-nav a {
+    color: #e6e6e6;
+    margin: 0 0.75rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .main-nav a:hover {
+    color: #39b370;
+  }
+  
+  .login-container {
+    margin-left: auto;
+  }
+  
+  .login-button {
+    background-color: #39b370;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #2e8e5b;
+    transform: translateY(-2px);
+  }
+  
+  /* ==============================
+     Hero Section
+     ============================== */
+  .hero-section {
+    background-color: #101010;
+    text-align: center;
+    padding: 5rem 2rem;
+    border-bottom: 1px solid #1c1c1c;
+  }
+  
+  .hero-section h2 {
+    font-size: 2.2rem;
+    color: #fff;
     margin-bottom: 0.5rem;
   }
-}
+  
+  .hero-section p {
+    font-size: 1.1rem;
+    color: #ccc;
+  }
+  
+  /* ==============================
+     Info / Content Sections
+     ============================== */
+  .info-section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: #161616;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  .info-section h2 {
+    color: #39b370;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    border-bottom: 1px solid #2e8e5b;
+    padding-bottom: 0.5rem;
+  }
+  
+  .service-placeholder,
+  .team-placeholder,
+  .contact-form-placeholder {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: #111;
+    border: 1px dashed #39b370;
+    text-align: center;
+    border-radius: 8px;
+    color: #aaa;
+    font-style: italic;
+  }
+  
+  /* ==============================
+     Contact Form (Global)
+     ============================== */
+  .contact-form {
+    max-width: 600px;
+    margin: 2rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .contact-form label {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    background: #0f0f0f;
+    border: 1px solid #2e8e5b;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: #39b370;
+    box-shadow: 0 0 8px rgba(57, 179, 112, 0.4);
+  }
+  
+  .submit-button {
+    background: #39b370;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem 1.2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    align-self: center;
+    width: fit-content;
+  }
+  
+  .submit-button:hover {
+    background: #2e8e5b;
+    transform: translateY(-2px);
+  }
+  
+  .form-status {
+    color: #39b370;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1rem;
+    min-height: 1.2rem;
+  }
+  
+  /* ==============================
+     Footer
+     ============================== */
+  .site-footer {
+    background: #111;
+    color: #ccc;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #1c1c1c;
+  }
+  
+  /* ==============================
+     Responsive Design
+     ============================== */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .main-nav {
+      margin-top: 1rem;
+    }
+  
+    .login-container {
+      margin-top: 1rem;
+      align-self: flex-end;
+    }
+  
+    .logo {
+      margin-bottom: 0.5rem;
+    }
+  
+    .info-section {
+      width: 90%;
+      padding: 1.5rem;
+    }
+  
+    .submit-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  /* ===================================
+     "Other" Tab Styling
+     =================================== */
+  
+  #other .info-section {
+    background: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  #other .info-section h2 {
+    color: #39b370;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  #other .info-section p {
+    color: #ccc;
+    margin: 0.25rem 0;
+    font-size: 1rem;
+  }
+  
+  #other .info-section a {
+    color: #39b370;
+    text-decoration: none;
+  }
+  
+  #other .info-section a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Contact Form Container */
+  #other .contact-form-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17, 17, 17, 0.95);
+    border: 1px solid rgba(57, 179, 112, 0.3);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+  }
+  
+  #other .contact-form-placeholder:hover {
+    box-shadow: 0 0 45px rgba(57, 179, 112, 0.25);
+  }
+  
+  #other .contact-form-placeholder h3 {
+    color: #39b370;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Inner Form */
+  #other .contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+  
+  #other .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    width: 100%;
+  }
+  
+  #other .contact-form label {
+    font-weight: 600;
+    color: #e6e6e6;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+  }
+  
+  #other .contact-form input,
+  #other .contact-form textarea {
+    width: 100%;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(57, 179, 112, 0.4);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    resize: none;
+  }
+  
+  #other .contact-form input:focus,
+  #other .contact-form textarea:focus {
+    outline: none;
+    border-color: #39b370;
+    box-shadow: 0 0 12px rgba(57, 179, 112, 0.4);
+    background: rgba(30, 30, 30, 0.95);
+  }
+  
+  /* Button */
+  #other .submit-button {
+    background: linear-gradient(135deg, #39b370, #2e8e5b);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    letter-spacing: 0.5px;
+  }
+  
+  #other .submit-button:hover {
+    background: linear-gradient(135deg, #2e8e5b, #39b370);
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(57, 179, 112, 0.5);
+  }
+  
+  /* Status Text */
+  #other .form-status {
+    color: #39b370;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1.2rem;
+    min-height: 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    #other .contact-form-placeholder {
+      padding: 2rem 1.5rem;
+      width: 95%;
+    }
+  
+    #other .contact-form h3 {
+      font-size: 1.5rem;
+    }
+  
+    #other .submit-button {
+      width: 100%;
+    }
+  }
+  
