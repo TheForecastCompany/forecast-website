@@ -1,9 +1,5 @@
-import { spawn } from 'child_process';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Mock forecast API - Python execution not supported on Vercel
+// TODO: Implement proper forecast logic or use external API
 
 export default async function handler(req, res) {
     // Enable CORS
@@ -28,43 +24,14 @@ export default async function handler(req, res) {
     }
 
     try {
-        const scriptPath = path.join(process.cwd(), 'Server', 'hugging_forecast.py');
-        const python = spawn('python3', [scriptPath, date]);
+        // Mock forecast data for now
+        // In production, you would implement proper forecast logic here
+        const mockForecast = {
+            forecast: Math.floor(Math.random() * 10000) + 5000, // Random forecast between 5000-15000
+            safeEstimate: Math.floor(Math.random() * 12000) + 6000 // Random safe estimate between 6000-18000
+        };
 
-        let data = '';
-        let errorData = '';
-
-        python.stdout.on('data', (chunk) => {
-            data += chunk.toString();
-        });
-
-        python.stderr.on('data', (err) => {
-            errorData += err.toString();
-            console.error('Python error:', err.toString());
-        });
-
-        python.on('close', (code) => {
-            if (code !== 0) {
-                console.error('Python script exited with code:', code);
-                console.error('Error data:', errorData);
-                return res.status(500).json({ message: 'Python script execution failed' });
-            }
-
-            try {
-                const result = JSON.parse(data);
-                res.json({ forecast: result[0], safeEstimate: result[1] });
-            } catch (err) {
-                console.error('Error parsing Python output:', err);
-                console.error('Raw output:', data);
-                res.status(500).json({ message: 'Error parsing forecast results' });
-            }
-        });
-
-        python.on('error', (err) => {
-            console.error('Failed to start Python process:', err);
-            res.status(500).json({ message: 'Failed to start forecast process' });
-        });
-
+        res.json(mockForecast);
     } catch (error) {
         console.error('Forecast error:', error);
         res.status(500).json({ message: 'Internal server error' });

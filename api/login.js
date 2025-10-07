@@ -1,7 +1,5 @@
-// Import Prisma client
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+// Simple authentication without Prisma for now
+// TODO: Set up Prisma properly for production
 
 export default async function handler(req, res) {
     // Enable CORS
@@ -25,23 +23,20 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: 'Missing credentials' });
     }
 
-    try {
-        const user = await prisma.user.findUnique({
-            where: { username },
-        });
+    // Simple hardcoded authentication for now
+    const users = {
+        'testuser': 'password123',
+        'Wanda': 'buyyourownbeverage2019',
+        'admin': 'password',
+        'hospital': 'password123'
+    };
 
-        if (!user || user.password !== password) {
-            return res.status(401).json({ message: 'Invalid username or password' });
-        }
-
-        res.json({
-            message: 'Login successful',
-            username: user.username,
-        });
-    } catch (error) {
-        console.error('Login error:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    } finally {
-        await prisma.$disconnect();
+    if (!users[username] || users[username] !== password) {
+        return res.status(401).json({ message: 'Invalid username or password' });
     }
+
+    res.json({
+        message: 'Login successful',
+        username: username,
+    });
 }
